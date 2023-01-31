@@ -14,7 +14,7 @@ datasource db {
 model User {
   id        String    @id  @default(uuid())
   username  String    @unique
-  createdAt DateTime 
+  createdAt DateTime @default(now())
   deletedAt DateTime?
   updatedAt DateTime @default(now()) @updatedAt
   email     String    @unique
