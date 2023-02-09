@@ -1,6 +1,10 @@
 import fastify from "fastify";
 
+import signup from "./modules/auth/signup";
+import post from "./modules/post/post";
 const server = fastify();
+
+server.register(signup, post);
 
 server.get("/ping", async (request, reply) => {
   return "pong\n";
