@@ -1,16 +1,15 @@
 import fastify from "fastify";
+import { PORT } from "./env";
 
-import signup from "./modules/auth/signup";
-import post from "./modules/post/post";
+import { auth } from "./modules/auth";
+import { health } from "./modules/health";
+
 const server = fastify();
 
-server.register(signup, post);
+server.register(health);
+server.register(auth);
 
-server.get("/ping", async (request, reply) => {
-  return "pong\n";
-});
-
-server.listen({ port: 8080 }, (err, address) => {
+server.listen({ port: PORT }, (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
