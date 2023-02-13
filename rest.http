@@ -8,8 +8,8 @@ POST http://localhost:{{port}}/auth/signup HTTP/1.1
 Content-Type: application/json
 
 {
-   "username": "xd lord",
-   "email": "xD@xd.xd",
+   "username": "xd lordaso",
+   "email": "xD@aaaaxd.xd",
    "password": "aoisjfhoaisjfoias"
 }
 

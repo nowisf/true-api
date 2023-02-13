@@ -2,6 +2,7 @@ import { FastifyPluginCallback } from "fastify";
 import validator from "validator";
 import { prisma } from "../../database";
 import bcrypt from "bcrypt";
+import { spacesRegex } from "../../utils";
 
 const ROUNDS = 10;
 
@@ -22,7 +23,10 @@ export const auth: FastifyPluginCallback = async (fastify, _opts, next) => {
     if (!validator.isEmail(email)) {
       return reply.code(400).send("Email is not valid");
     }
-    console.log(username);
+
+    if (spacesRegex.test(username)) {
+      return reply.code(400).send("Spaces are not allowed in username field");
+    }
 
     const encryptedPassword = await bcrypt.hash(password.trim(), ROUNDS);
 
