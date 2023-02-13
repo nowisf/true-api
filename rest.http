@@ -1,17 +1,12 @@
-### healthcheck
+### HEALTH
 GET http://localhost:8080/health HTTP/1.1
 
-
-### get lista
-GET http://localhost:8080/signup HTTP/1.1
-
-### post post 
-POST http://localhost:8080/post HTTP/1.1
+### SIGNUP
+POST http://localhost:8080/auth/signup HTTP/1.1
 Content-Type: application/json
 
 {
-   "id": "testoxxssxs"
+   "username": "",
+   "email": "",
+   "password": "aoisjfhoaisjfoias"
 }
-
-### get posts
-GET http://localhost:8080/post HTTP/1.1

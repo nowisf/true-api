@@ -7,7 +7,7 @@ import { health } from "./modules/health";
 const server = fastify();
 
 server.register(health);
-server.register(auth);
+server.register(auth, { prefix: "auth" });
 
 server.listen({ port: PORT }, (err, address) => {
   if (err) {
