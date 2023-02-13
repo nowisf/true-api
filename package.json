@@ -7,6 +7,7 @@
   "scripts": {
     "dev-local": "bob-tsm --watch=src src/index.ts",
     "dev": "dotenv-vault pull development .env && npm run dev-local",
+    "migrate": "npx prisma migrate dev",
     "start": "bob-tsm src/index.ts"
   },
   "keywords": [],
