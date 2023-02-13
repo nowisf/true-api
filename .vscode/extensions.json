@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "humao.rest-client",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "gruntfuggly.todo-tree",
+    "wayou.vscode-todo-highlight"
+  ]
+}
