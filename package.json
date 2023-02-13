@@ -7,7 +7,6 @@
   "scripts": {
     "dev-local": "bob-tsm --watch=src src/index.ts",
     "dev": "dotenv-vault pull development .env && npm run dev-local",
-    "prepare": "prisma generate",
     "start": "bob-tsm src/index.ts"
   },
   "keywords": [],

@@ -1,12 +1,16 @@
+@port = {{$dotenv PORT}}
+
 ### HEALTH
-GET http://localhost:8080/health HTTP/1.1
+GET http://localhost:{{port}}/health HTTP/1.1
 
 ### SIGNUP
-POST http://localhost:8080/auth/signup HTTP/1.1
+POST http://localhost:{{port}}/auth/signup HTTP/1.1
 Content-Type: application/json
 
 {
-   "username": "",
-   "email": "",
+   "username": "xd lord",
+   "email": "xD@xd.xd",
    "password": "aoisjfhoaisjfoias"
 }
+
+

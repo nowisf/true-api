@@ -22,6 +22,7 @@ export const auth: FastifyPluginCallback = async (fastify, _opts, next) => {
     if (!validator.isEmail(email)) {
       return reply.code(400).send("Email is not valid");
     }
+    console.log(username);
 
     const encryptedPassword = await bcrypt.hash(password.trim(), ROUNDS);
 
