@@ -12,6 +12,11 @@ interface SignupProps {
   password: string;
 }
 
+interface LoginProps {
+  usernameOrEmail: string;
+  password: string;
+}
+
 export const auth: FastifyPluginCallback = async (fastify, _opts, next) => {
   fastify.post("/signup", async (req, reply) => {
     const { email, password, username } = req.body as SignupProps;
@@ -38,9 +43,30 @@ export const auth: FastifyPluginCallback = async (fastify, _opts, next) => {
       },
     });
 
-    // TODO: Enviar correo de confirmación de cuenta
-
     return reply.send(`User with id ${user.id} has been created`);
+  });
+
+  fastify.post("/login", async (req, reply) => {
+    const { usernameOrEmail, password } = req.body as LoginProps;
+
+    if (usernameOrEmail === "" || password === "") {
+      return reply.code(400).send("All fields are required");
+    }
+
+    const user = await prisma.user.findFirst({
+      where: { OR: [{ username: usernameOrEmail }, { email: usernameOrEmail.toLowerCase() }] },
+    });
+    if (!user) {
+      return reply.code(404).send("User not found");
+    }
+
+    const passwordsAreEqual = await bcrypt.compare(password, user.password);
+    if (!passwordsAreEqual) {
+      return reply.code(401).send("Incorrect User or Password");
+    }
+
+    const token = fastify.jwt.sign({ id: user.id, email: user.email });
+    return reply.send(token);
   });
 
   next();
