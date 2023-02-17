@@ -4,7 +4,6 @@
   "plugins": ["@typescript-eslint"],
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
   "env": {
-    "browser": false,
     "node": true
   }
 }

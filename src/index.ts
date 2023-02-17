@@ -4,7 +4,8 @@ import { PORT, JWT_SECRET } from "./env";
 import { auth } from "./modules/auth";
 import { health } from "./modules/health";
 import jwt from "@fastify/jwt";
-const server = fastify();
+
+export const server = fastify();
 
 server.register(health);
 server.register(auth, { prefix: "auth" });
