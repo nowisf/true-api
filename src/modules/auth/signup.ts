@@ -37,5 +37,7 @@ export const signup = async (req: FastifyRequest, reply: FastifyReply) => {
     },
   });
 
+  // TODO: Enviar correo de confirmación de cuenta
+
   return reply.send(`User with id ${user.id} has been created`);
 };

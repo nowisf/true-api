@@ -28,5 +28,5 @@ export const login = async (req: FastifyRequest, reply: FastifyReply) => {
   }
 
   const token = server.jwt.sign({ id: user.id, email: user.email });
-  return reply.send(token);
+  return reply.send({ token });
 };
