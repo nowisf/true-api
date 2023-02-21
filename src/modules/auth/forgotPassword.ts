@@ -33,12 +33,14 @@ export const forgotPassword = async (req: FastifyRequest, reply: FastifyReply) =
   }
 
   const decodedToken = server.jwt.decode(token);
-
+  if (!decodedToken) {
+    return reply.send("unvalid");
+  }
   // Cambiar la clave
-
+  const encryptedPassword = await bcrypt.hash(password.trim(), ROUNDS);
   const post = await prisma.user.update({
     where: { email: decodedToken.email },
-    data: { password },
+    data: { password: encryptedPassword },
   });
   console.log(post);
 
