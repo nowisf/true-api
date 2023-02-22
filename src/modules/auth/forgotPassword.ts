@@ -35,6 +35,11 @@ export const forgotPassword = async (req: FastifyRequest, reply: FastifyReply) =
     return reply.code(400).send("All fields are required");
   }
 
+  const tokenIsValid = server.jwt.verify(token);
+  if (!tokenIsValid) {
+    return reply.code(401).send("Token expired");
+  }
+
   const decodedToken = server.jwt.decode(token) as TokenContent;
   if (!decodedToken) {
     return reply.code(401).send("Token is invalid");
