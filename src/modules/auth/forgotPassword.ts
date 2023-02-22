@@ -21,14 +21,12 @@ export const forgotPassword = async (req: FastifyRequest, reply: FastifyReply) =
     }
     const user = await prisma.user.findFirst({ where: { email: body.email } });
     if (!user) {
-      return reply.send("Invalido");
+      return reply.send({"User not found"});
     }
-
-    // 1. Generar token que expire en 15 minutos
     const token = server.jwt.sign({ email: body.email, id: user.id }, { expiresIn: "15m" });
     1;
     // 2. TODO: Enviar correo con link + token
-    return reply.send(`an email with instructions was sent to you (test:token:${token} )`);
+    return reply.send(`${token} )`);
   }
 
   const { password, token } = body;
@@ -41,7 +39,6 @@ export const forgotPassword = async (req: FastifyRequest, reply: FastifyReply) =
   if (!decodedToken) {
     return reply.send("unvalid");
   }
-  // Cambiar la clave
   const encryptedPassword = await bcrypt.hash(password.trim(), ROUNDS);
   const post = await prisma.user.update({
     where: { email: decodedToken.email },
