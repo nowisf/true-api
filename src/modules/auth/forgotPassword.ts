@@ -21,12 +21,12 @@ export const forgotPassword = async (req: FastifyRequest, reply: FastifyReply) =
     }
     const user = await prisma.user.findFirst({ where: { email: body.email } });
     if (!user) {
-      return reply.send({"User not found"});
+      return reply.send("User not found");
     }
     const token = server.jwt.sign({ email: body.email, id: user.id }, { expiresIn: "15m" });
     1;
     // 2. TODO: Enviar correo con link + token
-    return reply.send(`${token} )`);
+    return reply.send({ token });
   }
 
   const { password, token } = body;
