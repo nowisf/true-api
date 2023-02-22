@@ -27,6 +27,6 @@ export const login = async (req: FastifyRequest, reply: FastifyReply) => {
     return reply.code(401).send("Incorrect User or Password");
   }
 
-  const token = server.jwt.sign({ id: user.id, email: user.email });
+  const token = server.jwt.sign({ id: user.id, email: user.email }, { expiresIn: "7d" });
   return reply.send({ token });
 };
