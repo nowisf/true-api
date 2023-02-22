@@ -8,7 +8,7 @@ import { prisma } from "../../database";
 export type ForgotPasswordProps = { token: string; password: string } | { email: string };
 
 interface TokenContent {
-  id: number;
+  id: string;
   email: string;
 }
 
@@ -40,11 +40,10 @@ export const forgotPassword = async (req: FastifyRequest, reply: FastifyReply) =
     return reply.code(401).send("Token is invalid");
   }
   const encryptedPassword = await bcrypt.hash(password.trim(), ROUNDS);
-  const post = await prisma.user.update({
-    where: { email: decodedToken.email },
+  await prisma.user.update({
+    where: { id: decodedToken.id },
     data: { password: encryptedPassword },
   });
-  console.log(post);
 
   return reply.send("Password changed");
 };
