@@ -7,6 +7,11 @@ import { prisma } from "../../database";
 
 export type ForgotPasswordProps = { token: string; password: string } | { email: string };
 
+interface TokenContent {
+  id: number;
+  email: string;
+}
+
 export const forgotPassword = async (req: FastifyRequest, reply: FastifyReply) => {
   const body = req.body as ForgotPasswordProps;
 
@@ -32,7 +37,7 @@ export const forgotPassword = async (req: FastifyRequest, reply: FastifyReply) =
     return reply.code(400).send("All fields are required");
   }
 
-  const decodedToken = server.jwt.decode(token);
+  const decodedToken = server.jwt.decode(token) as TokenContent;
   if (!decodedToken) {
     return reply.send("unvalid");
   }
