@@ -2,8 +2,8 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import validator from "validator";
 import { server } from "../../index";
 import bcrypt from "bcrypt";
-import { ROUNDS } from "../../env";
 import { prisma } from "../../database";
+import { ROUNDS } from "../../constants";
 
 export type ForgotPasswordProps = { token: string; password: string } | { email: string };
 
