@@ -21,7 +21,7 @@ export const forgotPassword = async (req: FastifyRequest, reply: FastifyReply) =
     }
     const user = await prisma.user.findFirst({ where: { email: body.email } });
     if (!user) {
-      return reply.send("User not found");
+      return reply.code(404).send("User not found");
     }
     const token = server.jwt.sign({ email: body.email, id: user.id }, { expiresIn: "15m" });
     1;
@@ -37,7 +37,7 @@ export const forgotPassword = async (req: FastifyRequest, reply: FastifyReply) =
 
   const decodedToken = server.jwt.decode(token) as TokenContent;
   if (!decodedToken) {
-    return reply.send("unvalid");
+    return reply.code(401).send("Token is invalid");
   }
   const encryptedPassword = await bcrypt.hash(password.trim(), ROUNDS);
   const post = await prisma.user.update({
