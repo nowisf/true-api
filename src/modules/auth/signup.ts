@@ -3,8 +3,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { spacesRegex } from "../../utils";
 import bcrypt from "bcrypt";
 import { prisma } from "../../database";
-
-const ROUNDS = 10;
+import { ROUNDS } from "../../constants";
 
 export interface SignupProps {
   username: string;
