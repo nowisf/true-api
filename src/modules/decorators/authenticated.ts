@@ -24,7 +24,7 @@ export const authenticated = async function (req: FastifyRequest, reply: Fastify
       where: { id },
     });
     if (!user) {
-      return reply.code(401).send("Unathorized use");
+      return reply.code(401).send("Unathorized user");
     }
   } catch (err) {
     reply.send(err);
