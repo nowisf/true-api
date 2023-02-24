@@ -5,7 +5,7 @@ import { decodeToken } from "../../utils";
 
 export type TokenHolder = { token: string };
 
-export const authenticated = async function (req: FastifyRequest, reply: FastifyReply) {
+export const admin = async function (req: FastifyRequest, reply: FastifyReply) {
   try {
     const { token } = req.body as TokenHolder;
 
@@ -24,6 +24,10 @@ export const authenticated = async function (req: FastifyRequest, reply: Fastify
       where: { id },
     });
     if (!user) {
+      return reply.code(401).send("Unathorized user");
+    }
+
+    if (user.role != "ADMIN") {
       return reply.code(401).send("Unathorized user");
     }
   } catch (err) {
