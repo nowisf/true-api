@@ -5,6 +5,7 @@ import { auth } from "./modules/auth";
 import { health } from "./modules/health";
 import jwt from "@fastify/jwt";
 import { authenticated } from "./modules/decorators/authenticated";
+import { admin } from "./modules/decorators/admin";
 
 export const server = fastify();
 
@@ -14,6 +15,7 @@ server.register(jwt, {
   secret: JWT_SECRET,
 });
 server.decorate("authenticated", authenticated);
+server.decorate("admin", admin);
 
 server.listen({ port: PORT }, (err, address) => {
   if (err) {
