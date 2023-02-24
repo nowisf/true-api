@@ -20,12 +20,11 @@ export const authenticated = async function (req: FastifyRequest, reply: Fastify
     }
 
     const { id } = decodedToken;
-
-    const user = prisma.user.findFirst({
+    const user = prisma.user.findUnique({
       where: { id },
     });
     if (!user) {
-      return reply.code(401).send("Invalid credentials");
+      return reply.code(401).send("Unathorized use");
     }
   } catch (err) {
     reply.send(err);
