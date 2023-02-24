@@ -4,13 +4,9 @@ import { server } from "../../index";
 import bcrypt from "bcrypt";
 import { prisma } from "../../database";
 import { ROUNDS } from "../../constants";
+import { decodeToken } from "../../utils";
 
 export type ForgotPasswordProps = { token: string; password: string } | { email: string };
-
-interface TokenContent {
-  id: string;
-  email: string;
-}
 
 export const forgotPassword = async (req: FastifyRequest, reply: FastifyReply) => {
   const body = req.body as ForgotPasswordProps;
@@ -40,7 +36,7 @@ export const forgotPassword = async (req: FastifyRequest, reply: FastifyReply) =
     return reply.code(401).send("Token expired");
   }
 
-  const decodedToken = server.jwt.decode(token) as TokenContent;
+  const decodedToken = decodeToken(token);
   if (!decodedToken) {
     return reply.code(401).send("Token is invalid");
   }
