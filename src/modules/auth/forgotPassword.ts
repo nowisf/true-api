@@ -42,7 +42,7 @@ export const forgotPassword = async (req: FastifyRequest, reply: FastifyReply) =
   }
   const encryptedPassword = await bcrypt.hash(password.trim(), ROUNDS);
   await prisma.user.update({
-    where: { id: decodedToken.id },
+    where: { id: (await decodedToken).id },
     data: { password: encryptedPassword },
   });
 
