@@ -1,4 +1,4 @@
-import { server } from "..";
+import { server } from "../fastify";
 
 interface TokenContent {
   id: string;

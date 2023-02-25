@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import validator from "validator";
-import { server } from "../../index";
+import { server } from "../../fastify";
 import bcrypt from "bcrypt";
 import { prisma } from "../../database";
 import { ForgotPasswordProps } from "./types";

@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { prisma } from "../../database";
 import bcrypt from "bcrypt";
-import { server } from "../../index";
+import { server } from "../../fastify";
 import { LoginProps } from "./types";
 
 export async function login(req: FastifyRequest, reply: FastifyReply) {
