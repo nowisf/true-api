@@ -1,17 +1,12 @@
 import validator from "validator";
 import { FastifyReply, FastifyRequest } from "fastify";
-import { spacesRegex } from "../../utils";
 import bcrypt from "bcrypt";
 import { prisma } from "../../database";
-import { ROUNDS } from "../../constants";
+import { SignupProps } from "./types";
+import { ROUNDS } from "../../env";
+import { spacesRegex } from "../../utils/regex";
 
-export interface SignupProps {
-  username: string;
-  email: string;
-  password: string;
-}
-
-export const signup = async (req: FastifyRequest, reply: FastifyReply) => {
+export async function signup(req: FastifyRequest, reply: FastifyReply) {
   const { email, password, username } = req.body as SignupProps;
 
   if (email === "" || password === "" || username === "") {
@@ -39,4 +34,4 @@ export const signup = async (req: FastifyRequest, reply: FastifyReply) => {
   // TODO: Enviar correo de confirmación de cuenta
 
   return reply.send(`User with id ${user.id} has been created`);
-};
+}

@@ -3,12 +3,11 @@ import validator from "validator";
 import { server } from "../../index";
 import bcrypt from "bcrypt";
 import { prisma } from "../../database";
-import { ROUNDS } from "../../constants";
-import { decodeToken } from "../../utils";
+import { ForgotPasswordProps } from "./types";
+import { ROUNDS } from "../../env";
+import { decodeToken } from "../../utils/token";
 
-export type ForgotPasswordProps = { token: string; password: string } | { email: string };
-
-export const forgotPassword = async (req: FastifyRequest, reply: FastifyReply) => {
+export async function forgotPassword(req: FastifyRequest, reply: FastifyReply) {
   const body = req.body as ForgotPasswordProps;
 
   if ("email" in body) {
@@ -31,20 +30,13 @@ export const forgotPassword = async (req: FastifyRequest, reply: FastifyReply) =
     return reply.code(400).send("All fields are required");
   }
 
-  const tokenIsValid = server.jwt.verify(token);
-  if (!tokenIsValid) {
-    return reply.code(401).send("Token expired");
-  }
+  const decoded = decodeToken(token);
 
-  const decodedToken = decodeToken(token);
-  if (!decodedToken) {
-    return reply.code(401).send("Token is invalid");
-  }
   const encryptedPassword = await bcrypt.hash(password.trim(), ROUNDS);
   await prisma.user.update({
-    where: { id: decodedToken.id },
+    where: { id: decoded.id },
     data: { password: encryptedPassword },
   });
 
   return reply.send("Password changed");
-};
+}

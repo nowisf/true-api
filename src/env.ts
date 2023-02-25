@@ -9,3 +9,4 @@ dotenv.config({
 
 export const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 export const JWT_SECRET = process.env.JWT_SECRET || "";
+export const ROUNDS = process.env.ROUNDS ? parseInt(process.env.ROUNDS) : 8;

@@ -2,13 +2,9 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { prisma } from "../../database";
 import bcrypt from "bcrypt";
 import { server } from "../../index";
+import { LoginProps } from "./types";
 
-export interface LoginProps {
-  usernameOrEmail: string;
-  password: string;
-}
-
-export const login = async (req: FastifyRequest, reply: FastifyReply) => {
+export async function login(req: FastifyRequest, reply: FastifyReply) {
   const { usernameOrEmail, password } = req.body as LoginProps;
 
   if (usernameOrEmail === "" || password === "") {
@@ -24,9 +20,9 @@ export const login = async (req: FastifyRequest, reply: FastifyReply) => {
 
   const passwordsAreEqual = await bcrypt.compare(password, user.password);
   if (!passwordsAreEqual) {
-    return reply.code(401).send("Incorrect User or Password");
+    return reply.code(401).send("Incorrect user or password");
   }
 
   const token = server.jwt.sign({ id: user.id, email: user.email }, { expiresIn: "7d" });
   return reply.send({ token });
-};
+}

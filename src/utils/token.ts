@@ -1,6 +1,4 @@
-import { server } from ".";
-
-export const spacesRegex = new RegExp(/\s+/g);
+import { server } from "..";
 
 interface TokenContent {
   id: string;
@@ -8,6 +6,12 @@ interface TokenContent {
 }
 
 export const decodeToken = (token: string) => {
+  const isValid = server.jwt.verify(token);
+
+  if (!isValid) {
+    throw new Error("Token expired");
+  }
+
   const decoded = server.jwt.decode(token);
 
   if (!decoded) {
