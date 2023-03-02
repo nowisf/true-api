@@ -1,5 +1,7 @@
 import { FastifyPluginCallback } from "fastify";
 import { requireAdmin } from "../../middlewares/admin";
+import { create } from "./create";
+import { ddelete } from "./delete";
 import { update } from "./update";
 
 export const user: FastifyPluginCallback = async (fastify, _opts, next) => {
@@ -14,7 +16,13 @@ export const user: FastifyPluginCallback = async (fastify, _opts, next) => {
     method: "POST",
     url: "/users/",
     onRequest: requireAdmin,
-    handler: update,
+    handler: create,
+  });
+  fastify.route({
+    method: "DELETE",
+    url: "/users/:id",
+    onRequest: requireAdmin,
+    handler: ddelete,
   });
 
   next();
