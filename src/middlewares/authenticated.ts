@@ -1,10 +1,9 @@
-import { UserRole } from "@prisma/client";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { prisma } from "../database";
 import { decodeToken } from "../utils/token";
 import { TokenHolder } from "./types";
 
-export async function admin(req: FastifyRequest, reply: FastifyReply) {
+export async function requireAuth(req: FastifyRequest, reply: FastifyReply) {
   try {
     const { token } = req.body as TokenHolder;
 
@@ -12,10 +11,10 @@ export async function admin(req: FastifyRequest, reply: FastifyReply) {
 
     const user = await prisma.user.findUnique({
       where: { id: decoded.id },
-      select: { role: true },
+      select: { id: true },
     });
 
-    if (user?.role !== UserRole.ADMIN) {
+    if (!user) {
       return reply.code(401).send("Unathorized user");
     }
   } catch (err) {
