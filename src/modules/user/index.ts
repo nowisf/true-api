@@ -10,5 +10,12 @@ export const user: FastifyPluginCallback = async (fastify, _opts, next) => {
     handler: update,
   });
 
+  fastify.route({
+    method: "POST",
+    url: "/users/",
+    onRequest: requireAdmin,
+    handler: update,
+  });
+
   next();
 };
