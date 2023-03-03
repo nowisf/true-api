@@ -9,3 +9,11 @@ export interface UserUpdateProps {
 export interface RequestParams {
   id: string;
 }
+
+export interface UserCreateProps {
+  username: string;
+  email: string;
+  password: string;
+  role?: UserRole;
+  active?: boolean;
+}
