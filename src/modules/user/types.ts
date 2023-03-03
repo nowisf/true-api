@@ -6,6 +6,10 @@ export interface UserUpdateProps {
   active?: boolean;
 }
 
+export interface RequestParams {
+  id: string;
+}
+
 export interface UserCreateProps {
   username: string;
   email: string;
