@@ -12,7 +12,11 @@ export async function login(req: FastifyRequest, reply: FastifyReply) {
   }
 
   const user = await prisma.user.findFirst({
-    where: { OR: [{ username: usernameOrEmail }, { email: usernameOrEmail.toLowerCase() }] },
+    where: {
+      OR: [{ username: usernameOrEmail }, { email: usernameOrEmail.toLowerCase() }],
+      active: true,
+      deletedAt: null,
+    },
   });
   if (!user) {
     return reply.code(404).send("User not found");

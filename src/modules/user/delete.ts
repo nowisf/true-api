@@ -2,13 +2,16 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { prisma } from "../../database";
 import { RequestParams } from "./types";
 
-export async function ddelete(req: FastifyRequest, reply: FastifyReply) {
+export async function deleteUser(req: FastifyRequest, reply: FastifyReply) {
   const { id } = req.params as RequestParams;
-  const user = prisma.user.findUnique({ where: { id } });
+
+  const user = prisma.user.update({
+    where: { id },
+    data: { deletedAt: new Date() },
+  });
   if (!user) {
     return reply.code(404).send("User not found");
   }
-  prisma.user.delete({ where: { id } });
 
-  return reply.send(user);
+  return reply.send({ user });
 }
