@@ -1,10 +1,12 @@
 import { FastifyPluginCallback } from "fastify";
 
 export const health: FastifyPluginCallback = (fastify, _opts, next) => {
-  fastify.get("/health", async (_req, reply) => {
-    reply.status(200);
-
-    reply.send({ status: "ok" });
+  fastify.route({
+    method: "GET",
+    url: "/health",
+    handler: (_req, reply) => {
+      reply.status(200).send({ status: "ok" });
+    },
   });
 
   next();

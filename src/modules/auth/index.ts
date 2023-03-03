@@ -4,9 +4,23 @@ import { login } from "./login";
 import { forgotPassword } from "./forgotPassword";
 
 export const auth: FastifyPluginCallback = async (fastify, _opts, next) => {
-  fastify.post("/signup", signup);
-  fastify.post("/login", login);
-  fastify.post("/forgot-password", forgotPassword);
+  fastify.route({
+    method: "POST",
+    url: "/signup",
+    handler: signup,
+  });
+
+  fastify.route({
+    method: "POST",
+    url: "/login",
+    handler: login,
+  });
+
+  fastify.route({
+    method: "POST",
+    url: "/forgot-password",
+    handler: forgotPassword,
+  });
 
   next();
 };
