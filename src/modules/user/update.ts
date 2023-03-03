@@ -35,5 +35,4 @@ export async function update(req: FastifyRequest, reply: FastifyReply) {
     where: { id },
     data: { password, role, active },
   });
->>>>>>> 5dd2e1e (feat: add update user endpoint to admins)
 }
