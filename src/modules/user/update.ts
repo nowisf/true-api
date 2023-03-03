@@ -1,6 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { prisma } from "../../database";
-<<<<<<< HEAD
 import { RequestParams, UserUpdateProps } from "./types";
 
 export async function update(req: FastifyRequest, reply: FastifyReply) {
