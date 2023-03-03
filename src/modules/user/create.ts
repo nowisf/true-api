@@ -10,7 +10,7 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
   const { email, password, username, role, active } = req.params as UserCreateProps;
 
   if (email === "" || password === "" || username === "") {
-    return reply.code(400).send("All fields are required");
+    return reply.code(400).send("Please fill required fields");
   }
 
   if (!validator.isEmail(email)) {
@@ -32,5 +32,6 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
       active,
     },
   });
-  return reply.send(user);
+
+  return reply.send({ user });
 }

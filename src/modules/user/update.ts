@@ -15,6 +15,6 @@ export async function update(req: FastifyRequest, reply: FastifyReply) {
   if (!user) {
     return reply.code(404).send("User not found");
   }
-  
+
   return reply.send({ user });
 }
