@@ -5,3 +5,7 @@ export interface UserUpdateProps {
   role?: UserRole;
   active?: boolean;
 }
+
+export interface RequestParams {
+  id: string;
+}
