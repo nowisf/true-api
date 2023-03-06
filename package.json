@@ -33,7 +33,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@fastify/jwt": "^6.6.0",
+    "@fastify/jwt": "^6.7.0",
     "@prisma/client": "^4.11.0",
     "bcrypt": "^5.1.0",
     "bob-tsm": "^1.1.2",
