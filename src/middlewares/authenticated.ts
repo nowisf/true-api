@@ -5,7 +5,7 @@ import { TokenHolder } from "./types";
 
 export async function requireAuth(req: FastifyRequest, reply: FastifyReply) {
   try {
-    const { token } = req.body as TokenHolder;
+    const { token } = req.headers as TokenHolder;
 
     const decoded = decodeToken(token);
 

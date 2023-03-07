@@ -9,8 +9,8 @@ POST {{urlBase}}/auth/signup HTTP/1.1
 Content-Type: application/json
 
 {
-   "username": "maleee",
-   "email": "male@test.guy",
+   "username": "maleeeeeeeeeeeeeeeeeeeeeeeeee",
+   "email": "maleeeeeeeeeeeeeee@test.guy",
    "password": "test"
 }
 
