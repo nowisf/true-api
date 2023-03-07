@@ -9,8 +9,8 @@ export const server = fastify();
 
 // routes
 server.register(health);
-server.register(auth);
-server.register(user);
+server.register(auth, { prefix: "auth" });
+server.register(user, { prefix: "user" });
 
 // plugins
 server.register(fastifyJwt, {
