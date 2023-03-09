@@ -5,17 +5,17 @@
 GET {{urlBase}}/health HTTP/1.1
 
 ### SIGNUP
-POST {{urlBase}}/auth/signup HTTP/1.1
+POST {{urlBase}}/api/auth/signup HTTP/1.1
 Content-Type: application/json
 
 {
-   "username": "male",
-   "email": "male@test.guy",
+   "username": "maleeeeeeeeeeeeeeeeeeeeeeeeee",
+   "email": "maleeeeeeeeeeeeeee@test.guy",
    "password": "test"
 }
 
 ### LOGIN
-POST {{urlBase}}/auth/login HTTP/1.1
+POST {{urlBase}}/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {

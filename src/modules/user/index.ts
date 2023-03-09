@@ -1,29 +1,27 @@
-import { FastifyPluginCallback } from "fastify";
-import { requireAdmin } from "../../middlewares/admin";
+import { FastifyInstance } from "fastify";
+import { checkAdmin } from "../../middlewares/admin";
 import { create } from "./create";
 import { deleteUser } from "./delete";
 import { update } from "./update";
 
-export const user: FastifyPluginCallback = async (fastify, _opts, next) => {
+export const user = async (fastify: FastifyInstance) => {
   fastify.route({
     method: "PUT",
     url: "/users/:id",
-    onRequest: requireAdmin,
+    onRequest: checkAdmin,
     handler: update,
   });
 
   fastify.route({
     method: "POST",
     url: "/users/",
-    onRequest: requireAdmin,
+    onRequest: checkAdmin,
     handler: create,
   });
   fastify.route({
     method: "DELETE",
     url: "/users/:id",
-    onRequest: requireAdmin,
+    onRequest: checkAdmin,
     handler: deleteUser,
   });
-
-  next();
 };

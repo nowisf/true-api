@@ -1,12 +1,27 @@
-export type ForgotPasswordProps = { token: string; password: string } | { email: string };
+import { FastifyRequest } from "fastify";
 
-export interface LoginProps {
-  usernameOrEmail: string;
-  password: string;
-}
+export type ForgotPasswordRequest = FastifyRequest<{
+  Body:
+    | {
+        token: string;
+        password: string;
+      }
+    | {
+        email: string;
+      };
+}>;
 
-export interface SignupProps {
-  username: string;
-  email: string;
-  password: string;
-}
+export type LoginRequest = FastifyRequest<{
+  Body: {
+    usernameOrEmail: string;
+    password: string;
+  };
+}>;
+
+export type SignupRequest = FastifyRequest<{
+  Body: {
+    username: string;
+    email: string;
+    password: string;
+  };
+}>;

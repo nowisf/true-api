@@ -1,6 +1,6 @@
-import { FastifyPluginCallback } from "fastify";
+import { FastifyInstance } from "fastify";
 
-export const health: FastifyPluginCallback = (fastify, _opts, next) => {
+export const health = (fastify: FastifyInstance) => {
   fastify.route({
     method: "GET",
     url: "/health",
@@ -8,6 +8,4 @@ export const health: FastifyPluginCallback = (fastify, _opts, next) => {
       reply.status(200).send({ status: "ok" });
     },
   });
-
-  next();
 };

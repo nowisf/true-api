@@ -2,11 +2,14 @@ import { UserRole } from "@prisma/client";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { prisma } from "../database";
 import { decodeToken } from "../utils/token";
-import { TokenHolder } from "./types";
 
-export async function requireAdmin(req: FastifyRequest, reply: FastifyReply) {
+export async function checkAdmin(req: FastifyRequest, reply: FastifyReply) {
   try {
-    const { token } = req.body as TokenHolder;
+    const token = req.headers.authorization?.replace("Bearer", "");
+
+    if (!token) {
+      return reply.code(401).send("Unathorized user");
+    }
 
     const decoded = decodeToken(token);
 
@@ -15,7 +18,7 @@ export async function requireAdmin(req: FastifyRequest, reply: FastifyReply) {
       select: { role: true },
     });
 
-    if (user?.role !== UserRole.ADMIN) {
+    if (!user || user?.role !== UserRole.ADMIN) {
       return reply.code(401).send("Unathorized user");
     }
   } catch (err) {
