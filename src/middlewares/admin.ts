@@ -2,13 +2,13 @@ import { UserRole } from "@prisma/client";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { prisma } from "../database";
 import { decodeToken } from "../utils/token";
-import { TokenHolder } from "./types";
+import { AuthHolder } from "./types";
 
 export async function requireAdmin(req: FastifyRequest, reply: FastifyReply) {
   try {
-    const { token } = req.headers as TokenHolder;
+    const { authotization } = req.headers as AuthHolder;
 
-    const decoded = decodeToken(token);
+    const decoded = decodeToken(authotization);
 
     const user = await prisma.user.findUnique({
       where: { id: decoded.id },
