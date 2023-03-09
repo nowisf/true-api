@@ -1,1 +1,1 @@
-export type AuthHolder = { authotization: string };
+export type AuthHolder = { authorization: string };

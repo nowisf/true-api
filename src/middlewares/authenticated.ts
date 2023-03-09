@@ -5,9 +5,9 @@ import { AuthHolder } from "./types";
 
 export async function requireAuth(req: FastifyRequest, reply: FastifyReply) {
   try {
-    const { authotization } = req.headers as AuthHolder;
+    const { authorization } = req.headers as AuthHolder;
 
-    const decoded = decodeToken(authotization);
+    const decoded = decodeToken(authorization);
 
     const user = await prisma.user.findUnique({
       where: { id: decoded.id },
