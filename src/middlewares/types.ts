@@ -1,1 +1,3 @@
-export type AuthHolder = { authorization: string };
+export interface Headers {
+  authorization: string;
+}

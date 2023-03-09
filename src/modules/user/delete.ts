@@ -1,9 +1,9 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import { FastifyReply } from "fastify";
 import { prisma } from "../../database";
-import { RequestParams } from "./types";
+import { DeleteUserRequest } from "./types";
 
-export async function deleteUser(req: FastifyRequest, reply: FastifyReply) {
-  const { id } = req.params as RequestParams;
+export async function deleteUser(req: DeleteUserRequest, reply: FastifyReply) {
+  const { id } = req.params;
 
   const user = prisma.user.update({
     where: { id },

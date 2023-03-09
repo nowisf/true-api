@@ -2,12 +2,12 @@ import validator from "validator";
 import { FastifyReply, FastifyRequest } from "fastify";
 import bcrypt from "bcrypt";
 import { prisma } from "../../database";
-import { SignupProps } from "./types";
 import { ROUNDS } from "../../env";
 import { spacesRegex } from "../../utils/regex";
+import { SignupRequest } from "./types";
 
-export async function signup(req: FastifyRequest, reply: FastifyReply) {
-  const { email, password, username } = req.body as SignupProps;
+export async function signup(req: SignupRequest, reply: FastifyReply) {
+  const { email, password, username } = req.body;
 
   if (email === "" || password === "" || username === "") {
     return reply.code(400).send("All fields are required");

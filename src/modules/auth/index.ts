@@ -1,9 +1,9 @@
-import { FastifyPluginCallback } from "fastify";
+import { FastifyInstance } from "fastify";
 import { signup } from "./signup";
 import { login } from "./login";
 import { forgotPassword } from "./forgotPassword";
 
-export const auth: FastifyPluginCallback = async (fastify, _opts, next) => {
+export const auth = async (fastify: FastifyInstance) => {
   fastify.route({
     method: "POST",
     url: "/signup",
@@ -21,6 +21,4 @@ export const auth: FastifyPluginCallback = async (fastify, _opts, next) => {
     url: "/forgot-password",
     handler: forgotPassword,
   });
-
-  next();
 };

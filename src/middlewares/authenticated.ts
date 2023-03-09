@@ -1,13 +1,16 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { prisma } from "../database";
 import { decodeToken } from "../utils/token";
-import { AuthHolder } from "./types";
 
-export async function requireAuth(req: FastifyRequest, reply: FastifyReply) {
+export async function checkAuth(req: FastifyRequest, reply: FastifyReply) {
   try {
-    const { authorization } = req.headers as AuthHolder;
+    const token = req.headers.authorization?.replace("Bearer", "");
 
-    const decoded = decodeToken(authorization);
+    if (!token) {
+      return reply.code(401).send("Unathorized user");
+    }
+
+    const decoded = decodeToken(token);
 
     const user = await prisma.user.findUnique({
       where: { id: decoded.id },

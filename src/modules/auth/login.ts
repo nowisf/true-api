@@ -2,10 +2,10 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { prisma } from "../../database";
 import bcrypt from "bcrypt";
 import { server } from "../../fastify";
-import { LoginProps } from "./types";
+import { LoginRequest } from "./types";
 
-export async function login(req: FastifyRequest, reply: FastifyReply) {
-  const { usernameOrEmail, password } = req.body as LoginProps;
+export async function login(req: LoginRequest, reply: FastifyReply) {
+  const { usernameOrEmail, password } = req.body;
 
   if (usernameOrEmail === "" || password === "") {
     return reply.code(400).send("All fields are required");

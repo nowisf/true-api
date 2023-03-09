@@ -1,14 +1,14 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import { FastifyReply } from "fastify";
 import validator from "validator";
 import { server } from "../../fastify";
 import bcrypt from "bcrypt";
 import { prisma } from "../../database";
-import { ForgotPasswordProps } from "./types";
 import { ROUNDS } from "../../env";
 import { decodeToken } from "../../utils/token";
+import { ForgotPasswordRequest } from "./types";
 
-export async function forgotPassword(req: FastifyRequest, reply: FastifyReply) {
-  const body = req.body as ForgotPasswordProps;
+export async function forgotPassword(req: ForgotPasswordRequest, reply: FastifyReply) {
+  const body = req.body;
 
   if ("email" in body) {
     if (!validator.isEmail(body.email)) {
