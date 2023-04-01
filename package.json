@@ -10,7 +10,7 @@
     "migrate": "npx prisma migrate dev",
     "prepare": "husky install",
     "pretty": "pretty-quick --staged",
-    "start": "bob-tsm src/index.ts",
+    "start": "dotenv-vault pull production .env && bob-tsm src/index.ts",
     "typecheck": "tsc",
     "test": "ava"
   },
