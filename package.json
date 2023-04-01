@@ -5,8 +5,7 @@
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
-    "dev-local": "bob-tsm --watch=src src/index.ts",
-    "dev": "dotenv-vault pull development .env && npm run dev-local",
+    "dev": "bob-tsm --watch=src src/index.ts",
     "migrate": "npx prisma migrate dev",
     "prepare": "husky install",
     "pretty": "pretty-quick --staged",
@@ -24,7 +23,6 @@
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "ava": "^5.2.0",
-    "dotenv-vault": "^1.18.0",
     "esbuild": "^0.17.14",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
@@ -40,7 +38,6 @@
     "bcrypt": "^5.1.0",
     "bob-tsm": "^1.1.2",
     "dotenv": "^16.0.3",
-    "dotenv-vault-core": "^0.7.0",
     "fastify": "^4.15.0",
     "require-env-variable": "^4.0.1",
     "validator": "^13.9.0"
