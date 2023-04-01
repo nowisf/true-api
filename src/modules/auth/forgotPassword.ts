@@ -12,11 +12,11 @@ export async function forgotPassword(req: ForgotPasswordRequest, reply: FastifyR
 
   if ("email" in body) {
     if (!validator.isEmail(body.email)) {
-      return reply.code(400).send("Email is not valid");
+      return reply.code(400).send({ error: "Email is not valid" });
     }
     const user = await prisma.user.findFirst({ where: { email: body.email } });
     if (!user) {
-      return reply.code(404).send("User not found");
+      return reply.code(404).send({ error: "User not found" });
     }
     const token = server.jwt.sign({ email: body.email, id: user.id }, { expiresIn: "15m" });
     1;
@@ -27,7 +27,7 @@ export async function forgotPassword(req: ForgotPasswordRequest, reply: FastifyR
   const { password, token } = body;
 
   if (token === "" || password === "") {
-    return reply.code(400).send("All fields are required");
+    return reply.code(400).send({ error: "All fields are required" });
   }
 
   const decoded = decodeToken(token);
@@ -38,5 +38,5 @@ export async function forgotPassword(req: ForgotPasswordRequest, reply: FastifyR
     data: { password: encryptedPassword },
   });
 
-  return reply.send("Password changed");
+  return reply.send({ data: "Password changed" });
 }

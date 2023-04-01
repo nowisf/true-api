@@ -10,15 +10,15 @@ export async function signup(req: SignupRequest, reply: FastifyReply) {
   const { email, password, username } = req.body;
 
   if (email === "" || password === "" || username === "") {
-    return reply.code(400).send("All fields are required");
+    return reply.code(400).send({ error: "All fields are required" });
   }
 
   if (!validator.isEmail(email)) {
-    return reply.code(400).send("Email is not valid");
+    return reply.code(400).send({ error: "Email is not valid" });
   }
 
   if (spacesRegex.test(username)) {
-    return reply.code(400).send("Spaces are not allowed in username field");
+    return reply.code(400).send({ error: "Spaces are not allowed in username field" });
   }
 
   const encryptedPassword = await bcrypt.hash(password.trim(), ROUNDS);
@@ -33,5 +33,5 @@ export async function signup(req: SignupRequest, reply: FastifyReply) {
 
   // TODO: Enviar correo de confirmación de cuenta
 
-  return reply.send(`User with id ${user.id} has been created`);
+  return reply.send({ data: `User with id ${user.id} has been created` });
 }
