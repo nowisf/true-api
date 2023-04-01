@@ -7,7 +7,7 @@ import { LoginRequest } from "./types";
 export async function login(req: LoginRequest, reply: FastifyReply) {
   const { usernameOrEmail, password } = req.body;
 
-  if (usernameOrEmail === "" || password === "") {
+  if (!usernameOrEmail || !password) {
     return reply.code(400).send("All fields are required");
   }
 
