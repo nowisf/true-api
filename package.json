@@ -39,7 +39,7 @@
     "bcrypt": "^5.1.0",
     "bob-tsm": "^1.1.2",
     "dotenv": "^16.0.3",
-    "fastify": "^4.15.0",
+    "fastify": "^4.26.1",
     "require-env-variable": "^4.0.1",
     "validator": "^13.9.0"
   }
